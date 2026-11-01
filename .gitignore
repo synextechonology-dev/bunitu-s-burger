@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.env*.local
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+
+# Materiais-fonte do cliente (não fazem parte do site; ficam só na pasta local)
+*.pdf
+*.zip
+/Cheese_melting_on_burger_patties_*.mp4
