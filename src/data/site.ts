@@ -1,7 +1,17 @@
 // Fonte única dos dados do Bunitu's Burger. Tudo que aparece no site sai daqui.
 // // PREENCHER = dado que o dono ainda precisa confirmar.
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bunitusburger.com.br"; // PREENCHER: domínio final
+const SITE_URL_PADRAO = "https://bunitusburger.com.br"; // PREENCHER: domínio final
+
+// Aceita valor vazio, sem "https://" ou com barra no fim; se ainda for inválido, usa o padrão (evita quebrar o build).
+function urlDoSite(bruto = ""): string {
+  let v = bruto.trim().replace(/\/+$/, "");
+  if (!v) return SITE_URL_PADRAO;
+  if (!/^https?:\/\//i.test(v)) v = `https://${v}`;
+  try { return new URL(v).origin; } catch { return SITE_URL_PADRAO; }
+}
+
+export const SITE_URL = urlDoSite(process.env.NEXT_PUBLIC_SITE_URL);
 
 export const site = {
   nome: "Bunitu's Burger",
