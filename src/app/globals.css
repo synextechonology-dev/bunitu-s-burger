@@ -1,7 +1,7 @@
 /* Bunitu's Burger — estilos extraídos da prévia aprovada (Claude Design, C2).
    Fontes vêm do next/font como variáveis: --f-anton, --f-brush, --f-barlow, --f-barlow-c. */
 body{margin:0;background:#FFFCDD}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 a{color:#0E0E0E}a:hover{color:#0E0E0E}
 
@@ -47,7 +47,7 @@ a{color:#0E0E0E}a:hover{color:#0E0E0E}
 /* ===== TOPO fiel à referência ===== */
 .topo{position:relative;background:#ECE4D6;overflow:hidden}
 .topo-diag{display:none}
-.hero-card{position:relative;background:#ECE4D6 url(/img/textura-reboco.jpg) repeat;background-size:560px;overflow:hidden}
+.hero-card{position:relative;padding-top:72px;background:#ECE4D6 url(/img/textura-reboco.jpg) repeat;background-size:560px;overflow:hidden}
 /* vídeo da chapa no fundo do lado do texto: transparente + camada avermelhada */
 .hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .hero-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;filter:saturate(1.1)}
@@ -72,7 +72,7 @@ a{color:#0E0E0E}a:hover{color:#0E0E0E}
 .art-bg span{clip-path:polygon(0 8%,100% 0,100% 100%,0 100%)}
 .hero-art>*{position:relative;z-index:1}
 .hero-art>.art-bg{position:absolute;z-index:0}
-.hdr{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:12px;height:72px;padding-right:12px;background:#1B1918}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;height:72px;padding-right:12px;background:#1B1918}
 .logo-bloco{align-self:stretch;display:flex;align-items:center;justify-content:center;text-decoration:none;padding:0 8px 0 16px}
 .logo-selo{width:auto;height:58px;display:block;transition:transform .25s}
 .logo-bloco:hover .logo-selo{transform:rotate(-8deg) scale(1.05)}
@@ -191,6 +191,8 @@ a{color:#0E0E0E}a:hover{color:#0E0E0E}
   .card-diag{display:block;position:absolute;inset:0;z-index:1;filter:drop-shadow(-14px 0 18px rgba(14,14,14,.30)) drop-shadow(-3px 0 4px rgba(14,14,14,.22))}
   .card-diag span{clip-path:polygon(63% 0,100% 0,100% 100%,47% 100%)}
   .art-bg{display:none}
+  html{scroll-padding-top:80px}
+  .hero-card{padding-top:80px}
   .hdr{height:80px;padding-right:28px}
   .logo-bloco{padding-left:24px}
   .logo-selo{height:66px}
@@ -246,7 +248,7 @@ a{color:#0E0E0E}a:hover{color:#0E0E0E}
 .ben p{font-size:14px;line-height:1.5;color:var(--suave)}
 
 /* cardápio */
-.tabs{display:flex;gap:6px;overflow-x:auto;margin:0 -16px 24px;padding:10px 16px;position:sticky;top:0;z-index:5;background:rgba(255,252,221,.95);backdrop-filter:blur(8px);scrollbar-width:none}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:0 -16px 24px;padding:10px 16px;position:sticky;top:72px;z-index:5;background:rgba(255,252,221,.95);backdrop-filter:blur(8px);scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:none;min-height:44px;padding:0 16px;border-radius:6px;border:0;background:transparent;box-shadow:inset 0 0 0 1.5px var(--linha-forte);font-family:var(--f-barlow-c),"Arial Narrow",sans-serif;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--preto);cursor:pointer}
 .tab:hover{background:var(--creme2)}
@@ -507,3 +509,5 @@ a{color:#0E0E0E}a:hover{color:#0E0E0E}
 .mapa-real .mapa-card{text-decoration:none;color:inherit;transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s}
 .mapa-real .mapa-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(27,25,24,.2)}
 .mapa-real:hover{transform:none}
+/* Cabeçalho fixo: abas do cardápio ficam coladas abaixo dele */
+@media (min-width:1200px){.tabs{top:80px}}
