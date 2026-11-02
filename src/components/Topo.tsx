@@ -23,6 +23,7 @@ export default function Topo() {
   const [hero, setHero] = useState(0);
   const [resto, setResto] = useState(false); // fotos dos outros slides só depois do carregamento inicial
   const status = useStatus();
+  const cabecalho = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const N = destaques.length;
   const atual = destaques[hero];
@@ -37,6 +38,16 @@ export default function Topo() {
     window.addEventListener("load", liberar, { once: true });
     return () => window.removeEventListener("load", liberar);
   }, [hero]);
+
+  // Menu aberto: fecha com Esc ou ao tocar fora do cabeçalho
+  useEffect(() => {
+    if (!menu) return;
+    const tecla = (e: KeyboardEvent) => e.key === "Escape" && setMenu(false);
+    const fora = (e: PointerEvent) => { if (!cabecalho.current?.contains(e.target as Node)) setMenu(false); };
+    document.addEventListener("keydown", tecla);
+    document.addEventListener("pointerdown", fora);
+    return () => { document.removeEventListener("keydown", tecla); document.removeEventListener("pointerdown", fora); };
+  }, [menu]);
 
   useEffect(() => {
     const v = video.current;
@@ -67,7 +78,7 @@ export default function Topo() {
         </div>
         <div className="card-diag" aria-hidden="true"><span /></div>
 
-        <header className="hdr">
+        <header className="hdr" ref={cabecalho}>
           <a href="#inicio" className="logo-bloco" aria-label="Bunitu's Burger, início">
             <img className="logo-selo" src="/img/selo-bunitus.png" alt="Bunitu's Burger" width={240} height={224} />
           </a>
@@ -87,7 +98,9 @@ export default function Topo() {
             </div>
             <a className="pilula-app" href={site.appUrl} target="_blank" rel="noopener" data-evento="clique_pedir_app">Pedir pelo app</a>
             <button type="button" className="menu-btn" onClick={() => setMenu((m) => !m)} aria-expanded={menu} aria-controls="menu-movel" aria-label={menu ? "Fechar menu" : "Abrir menu"}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 6h18M3 10h18M3 14h18M3 18h18" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <path d={menu ? "M5 5l14 14M19 5L5 19" : "M3 6h18M3 12h18M3 18h18"} />
+              </svg>
             </button>
           </div>
           {menu && (
